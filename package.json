@@ -1,0 +1,24 @@
+{
+  "name": "memory-cache",
+  "version": "0.1.0",
+  "description": "Creates an object cache in memory. Edit",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damusix/memory-cache.git"
+  },
+  "keywords": [
+    "memory",
+    "cache",
+    "browser"
+  ],
+  "author": "Danilo Alonso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/damusix/memory-cache/issues"
+  },
+  "homepage": "https://github.com/damusix/memory-cache#readme"
+}
