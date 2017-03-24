@@ -199,11 +199,11 @@ Crawls cache to set merge cached value. Can merge inside objects or arrays.
 
 ``` javascript
 
-    // Set in object
+    // Merge in object
     cache.mergeIn('nested.obj.is', { merged: true });
     // returns { set: true, merged: true };
 
-    // Set in array
+    // Merge in array
     cache.mergeIn('nested.arr.1', { merged: 'yes' });
     // returns { set: 'yes', merged: 'yes' }
 ```
@@ -214,13 +214,14 @@ Crawls cache to concat cached value. Can concat inside objects or arrays.
 
 ``` javascript
 
-    // Set in object
-    cache.mergeIn('nested.obj.is', { merged: true });
-    // returns { set: true, merged: true };
+    // Concat in object
+    cache.concatIn('nested.arr', { newItem: true });
+    // returns [{ inside: 'array' }, { set: false }, { newItem: true }]
 
-    // Set in array
-    cache.mergeIn('nested.arr.1', { merged: 'yes' });
-    // returns { set: 'yes', merged: 'yes' }
+    // Concat in array
+    cache.set('array', [{ of: { arrays: [] }}]);
+    cache.concatIn('array.0.of.arrays', { newItem: true });
+    // returns [{ newItem: true }];
 ```
 
 
