@@ -19,12 +19,11 @@ expect(pArr).to.have.lengthOf(2);
 expect(utils.findInObj(test, pArr)).to.equal('c');
 expect(utils.get(test, 'a.b')).to.equal('c');
 
-const _data = require('./data.json');
+const data = require('./data.json').slice(0,10);
 
 // Test both the es6 and es5 versions
 ['.', './lib/es5'].forEach((path) => {
 
-const data = Object.assign([], _data);
 const MemoryCache = require(path);
 
 
@@ -40,7 +39,7 @@ test = {
 data[0].name.last = 'Rasmussen';
 
 let cache = new MemoryCache;
-
+cache.debug(true)
 // Assert all functions are set
 expect(cache).to.be.an('object');
 expect(cache.set).to.be.a('function');
@@ -157,6 +156,9 @@ cache = new MemoryCache(test);
 expect(cache.get('a')).to.be.an('object');
 expect(cache.getIn('deep.nested.obj.is.set')).to.equal(true);
 
-console.log(`No errors found with "${path}"`);
+setTimeout(() => {
+
+    console.log(`No errors found with "${path}"`);
+}, 500);
 
 });
