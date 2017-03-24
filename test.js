@@ -19,7 +19,7 @@ expect(pArr).to.have.lengthOf(2);
 expect(utils.findInObj(test, pArr)).to.equal('c');
 expect(utils.get(test, 'a.b')).to.equal('c');
 
-const data = require('./data.json').slice(0,10);
+const data = require('./data.json').slice(0,5);
 
 // Test both the es6 and es5 versions
 ['.', './lib/es5'].forEach((path) => {
@@ -39,7 +39,7 @@ test = {
 data[0].name.last = 'Rasmussen';
 
 let cache = new MemoryCache;
-cache.debug(true)
+
 // Assert all functions are set
 expect(cache).to.be.an('object');
 expect(cache.set).to.be.a('function');
