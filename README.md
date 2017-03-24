@@ -1,6 +1,6 @@
 # Memory Cache
 
-Creates an mutable object cache in memory. Main lib supports IE10+. Includes an es5 lib that works in IE9 and lower. I wrote this to use as memory store to share data among components, for use with RiotJS, VueJS, and native browser apps. IE8 support for 100% platform coverage. Inspired by MicroJS movement.
+Instantiates a mutable object cache in memory. Main lib supports IE10+. Includes an es5 lib that works in IE9 and lower. I wrote this to use as memory store to share data among components, for use with tools like RiotJS, VueJS, and native browser apps. IE8 support for 100% platform coverage. Inspired by MicroJS, Lodash, Underscore, and RiotJS.
 
 To support ES6 version in older browsers, get polyfills for `Object.assign` and `Object.defineProperties`, and use `Babel` on your code.
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
@@ -94,7 +94,7 @@ Turns logging off or on.
 
 
 
-# \*Yawns\*
+## \*Yawns\*
 
 That stuff is actually kind of basic... and boring... Lets see the fun parts :)
 
@@ -146,7 +146,7 @@ Concatenates cached array.
     // returns ['a', 'b', 'c', 1, 2, 3];
 ```
 
-# It gets better
+## It gets better
 
 #### Lets suppose we have this object in cache:
 
