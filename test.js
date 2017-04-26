@@ -22,7 +22,7 @@ expect(utils.get(test, 'a.b')).to.equal('c');
 const data = require('./data.json').slice(0,5);
 
 // Test both the es6 and es5 versions
-['.', './lib/es5'].forEach((path) => {
+['.', './lib/es5', './lib/ie8'].forEach((path) => {
 
 const MemoryCache = require(path);
 
