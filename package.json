@@ -1,7 +1,7 @@
 {
-  "name": "memory-cache",
-  "version": "0.1.0",
-  "description": "Creates an object cache in memory. Edit",
+  "name": "memory-cache2",
+  "version": "1.0.0",
+  "description": "Creates an object cache in memory for use in browser or node. Can daisy chain key to get and set keys like `cache.get('deep.nested.keys.0.objArr1')`",
   "main": "index.js",
   "scripts": {
     "test": "node ./test.js"
