@@ -66,7 +66,7 @@ const assertEventReset = function(vals) {
 
 const assertEventExpire = function (vals) {
 
-    expect(vals).to.have.all.keys('name', 'ms');
+    expect(vals).to.have.all.keys('key', 'ms');
 
     eventsTested['expire'] = true;
 }
