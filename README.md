@@ -1,16 +1,13 @@
 # Memory Cache
 
-Instantiates a mutable object cache in memory. Main lib supports IE10+. Includes an es5 lib that works in IE9 and lower. I wrote this to use as memory store to share data among components, for use with tools like RiotJS, VueJS, and native browser apps. IE8 support for 100% platform coverage. Inspired by MicroJS, Lodash, Underscore, and RiotJS.
+Instantiates a mutable object cache in memory. I wrote this to use as memory store to share data among components, for use with tools like RiotJS, VueJS, and native browser apps.
 
-To support ES6 version in older browsers, get polyfills for `Object.assign` and `Object.defineProperties`, and use `Babel` on your code.
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
-- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperties#Polyfill
-- https://babeljs.io/docs/setup/
+##### NOTE: Version 2 drops support for anything that doesn't supporet ES6. For version 1, which has IE8 support, visit [v1 readme](v1.md). Version 1 is about 10x faster, but lacks features such as observer and immutable returns.
 
 ### Installation
 
 ``` javascript
-    npm install --save damusix/memory-cache
+    npm install --save memory-cache2
 ```
 
 ### Usage
@@ -21,11 +18,7 @@ You can either pass an existing object and convert it into a cache, or you can s
 
 ``` javascript
 
-    // ES6
     const MemoryCache = require('memory-cache');
-
-    // ES5 and IE support
-    const MemoryCacheIE = require('memory-cache/lib/es5');
 
     // Empty cache
     const cache = new MemoryCache;
@@ -91,14 +84,6 @@ Turns logging off or on.
     // cache remove testing
     // cache reset
 ```
-
-
-
-## \*Yawns\*
-
-That stuff is actually kind of basic... and boring... Lets see the fun parts :)
-
-
 
 ##### Expire
 Expire cache after a certain amount of time in miliseconds.

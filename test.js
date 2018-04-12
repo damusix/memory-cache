@@ -38,20 +38,37 @@ let cache = new MemoryCache;
 
 // Assert events
 
+const eventsTested = {
+
+    get: false,
+    set: false,
+    merge: false,
+    concat: false,
+    remove: false,
+    expire: false,
+    reset: false
+};
+
 const assertEvent = function(ev, vals) {
 
     expect(vals).to.include.all.keys('key', 'value');
     expect(vals).to.include.any.keys('key', 'name', 'value', 'expiresIn', 'with', 'subValue', 'nested');
+
+    eventsTested[ev] = true;
 };
 
 const assertEventReset = function(vals) {
 
     expect(vals).to.be.an('undefined');
+
+    eventsTested['reset'] = true;
 };
 
 const assertEventExpire = function (vals) {
 
     expect(vals).to.have.all.keys('name', 'ms');
+
+    eventsTested['expire'] = true;
 }
 
 cache.on('get', assertEvent.bind({},'get'));
@@ -187,5 +204,9 @@ cache = new MemoryCache(test);
 expect(cache.get('a')).to.be.an('object');
 expect(cache.getIn('deep/nested/obj/is/set')).to.equal(true);
 
+for (test in eventsTested) {
+
+    expect(test).to.not.equal(false);
+}
 
 console.log(chalk.green('OK!'));
