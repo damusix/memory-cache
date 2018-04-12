@@ -1,10 +1,11 @@
 {
   "name": "memory-cache2",
-  "version": "1.0.0",
-  "description": "Creates an object cache in memory for use in browser or node. Can daisy chain key to get and set keys like `cache.get('deep.nested.keys.0.objArr1')`",
+  "version": "2.0.0",
+  "description": "Creates an object cache in memory for use in browser or node. Cache instances are observable and can listen for or emit events. Can daisy chain key to get and set keys like `cache.get('deep.nested.keys.0.objArr1')`",
   "main": "index.js",
   "scripts": {
-    "test": "node ./test.js"
+    "test": "node ./test.js",
+    "benchmark": "node ./benchmark.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +14,8 @@
   "keywords": [
     "memory",
     "cache",
-    "browser"
+    "browser",
+    "es6"
   ],
   "author": "Danilo Alonso",
   "license": "MIT",
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/damusix/memory-cache#readme",
   "devDependencies": {
     "benchmark": "^2.1.3",
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "chalk": "^2.3.2"
   }
 }
