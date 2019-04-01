@@ -1,7 +1,12 @@
 # Memory Cache
 
-Instantiates a mutable object cache in memory. Uses `Map` and `Symbol` primitives, so it will only work on modern browsers (versions >= 2015), and node 4+. See [benchmarks here](benchmark.md)
+Instantiates a mutable object cache in memory. Uses `Map` and `Symbol` primitives, so it will only work on modern browsers (versions >= 2015), and node 4+. See [benchmarks here](benchmark.md).
 
+__Note about previous versions:__
+
+If you're using previous versions, You can find [v1 documentation here](v1.md) and [v2 documentation here](v2.md) and you can install using `memory-cache2@1` and `memory-cache2@2`. I have dropped support for functionality like `getIn`, `setIn`, `concatIn`, `mergeIn`. Instead, I opted refactoring to the more performant JS maps, only allowing `merge` and `concat`, and adding other features like `each`, `has`, and `size`. I also refactored the event emitter to only allow observing and not triggering. Triggering should only occur internally, as the cache does things.
+
+### API
 - [Instantiate](#instantiate)
 - [Set](#set)
 - [Get](#get)
