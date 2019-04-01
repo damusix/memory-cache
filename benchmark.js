@@ -2,13 +2,19 @@
 
 const MemoryCache = require('.');
 const Benchmark = require('benchmark');
-const suite = new Benchmark.Suite;
 
-const data = require('./data.json');
+const data = require('./test/data.json');
 
 const moderateData = data.slice(0,100);
-const concat1 = data.slice(200,300);
-const concat2 = data.slice(400,600);
+const concat = data.slice(100,200);
+const merge = data.slice(200,300);
+const objs = data.slice(500,1000).reduce((acc, cur) => {
+
+    acc[cur._id + +new Date];
+    return acc;
+}, {});
+
+const objKeys = Object.keys(objs);
 
 const test = {
     a: {
@@ -26,90 +32,118 @@ const test = {
 };
 
 const cache = new MemoryCache;
-
 cache.set('test', test);
 
-const dataIds = [];
-
-suite
-    .add('cache.set simple boolean', function() {
+const tests = [
+    ['cache.set simple boolean', function() {
 
         cache.set('benchmark', true);
-    })
-    .add('cache.get simple boolean', function() {
+    }],
+    ['cache.get simple boolean', function() {
 
         cache.get('benchmark');
-    })
-    .add('cache.set simple object', function() {
+    }],
+    ['cache.set simple object', function() {
 
         cache.set('test', test);
-    })
-    .add('cache.get simple object', function() {
+    }],
+    ['cache.get simple object', function() {
 
         cache.get('test');
-    })
-    .add('cache.set a moderate amount of data', function() {
+    }],
+    ['cache.set a moderate amount of data', function() {
 
         cache.set('data', moderateData);
-    })
-    .add('cache.get a moderate amount of data', function() {
+    }],
+    ['cache.get a moderate amount of data', function() {
 
         cache.get('data');
-    })
-    .add('cache.concat a moderate amount of data', function() {
+    }],
+    ['cache.set a large amount of data ', function() {
 
-        cache.concat('data', concat1);
-    })
-    .add('cache.get a moderate amount of data', function() {
+        for (const key of objKeys) {
 
-        cache.get('data');
-    })
-    .add('cache.set a large amount of data', function() {
-
-        data.forEach((d) => {
-
-            cache.set(d._id + +new Date, d);
-        });
-    })
-    .add('cache.set a large amount of data prep', function() {
-
-        let push = false;
-
-        if (!dataIds.length) {
-
-            push = true;
+            cache.set(key, objs[key]);
         }
+    }],
+    ['cache.get a large amount of data', function() {
 
-        data.forEach((d) => {
+        for (const key of objKeys) {
 
-            const id = d._id + +new Date;
-            cache.set(id, d);
-            push && dataIds.push(id);
-        });
-    })
-    .add('cache.get a large amount of data', function() {
+            cache.get(key);
+        }
+    }]
+]
 
-        dataIds.forEach((id) => {
+const evCache = new MemoryCache({}, { events: true });
+evCache.set('test', test);
 
-            cache.get(id);
-        });
-    })
-    .add('cache.replace deep nested obj', function() {
+const noop = () => {};
 
-        cache.replace('test.deep.nested.obj.is.set', true);
-    })
-    .add('cache.find deep nested obj', function() {
+evCache.onGet(noop);
+evCache.onSet(noop);
 
-        cache.find('test.deep.nested.obj.is.set');
-    })
+let suite = new Benchmark.Suite;
 
-    .on('cycle', function(event) {
+for (const [name, _test] of tests) {
+    suite = suite.add(name, _test);
+}
 
-        console.log(String(event.target));
+suite.on('cycle', function(event) {
 
-        // let data = cache.get('data');
-        // data && console.log(data.length);
-        console.log(dataIds.length);
-    })
+    console.log(String(event.target));
+})
+.run({ 'async': true });
 
-    .run({ 'async': true });
+
+let evSuite = new Benchmark.Suite;
+
+const evTests = [
+    ['EVENTS: evCache.set simple boolean', function() {
+
+        evCache.set('benchmark', true);
+    }],
+    ['EVENTS: evCache.get simple boolean', function() {
+
+        evCache.get('benchmark');
+    }],
+    ['EVENTS: evCache.set simple object', function() {
+
+        evCache.set('test', test);
+    }],
+    ['EVENTS: evCache.get simple object', function() {
+
+        evCache.get('test');
+    }],
+    ['EVENTS: evCache.set a moderate amount of data', function() {
+
+        evCache.set('data', moderateData);
+    }],
+    ['EVENTS: evCache.get a moderate amount of data', function() {
+
+        evCache.get('data');
+    }],
+    ['EVENTS: evCache.set a large amount of data ', function() {
+
+        for (const key of objKeys) {
+
+            evCache.set(key, objs[key]);
+        }
+    }],
+    ['EVENTS: evCache.get a large amount of data', function() {
+
+        for (const key of objKeys) {
+
+            evCache.get(key);
+        }
+    }],
+]
+
+for (const [name, _test] of evTests) {
+    evSuite = evSuite.add(name, _test);
+}
+evSuite.on('cycle', function(event) {
+
+    console.log(String(event.target));
+})
+.run({ 'async': true });
